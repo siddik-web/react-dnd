@@ -1,25 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Card from './Card'
+import './App.css'
 
 
 function Box({card, moveCard}) {
-    const [isOver, setIsOver] = useState(false);
 
     function handleDrop(e) {
         const dataJSON = e.dataTransfer.getData("text/plain");
         let data;
         try {
-          data = JSON.parse(dataJSON);
+            data = JSON.parse(dataJSON);
         } catch {}
         if (data && data.type === "card") {
             moveCard();
         }
-      }
+    }
     return (
-        <div onDragOver={(e) => { if(e.dataTransfer.types[0] === 'text/plain') {setIsOver(true); e.preventDefault()}}}
-        onDragLeave={() => {setIsOver(false)}}
+        <div 
+        className='box' 
+        onDragOver={(e) => { if(e.dataTransfer.types[0] === 'text/plain') {e.preventDefault()}}}
+        onDragLeave={() => {}}
         onDrop={handleDrop}>
-            {card ? <Card/> : "Box"}
+            {card ? <Card/> : <h2>Box</h2>}
         </div>
     )
 }

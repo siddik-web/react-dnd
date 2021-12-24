@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
+import './App.css'
 
 function Card() {
-    const [isDragging, setIsDragging] = useState(false)
-  
 
-    
     return (
-        <div draggable 
-        onDragStart={(e) => {setIsDragging(true); e.dataTransfer.setData('text/plain', JSON.stringify({type:'card'}))}} 
-        onDragEnd={(e) => {setIsDragging(false); e.dataTransfer.clearData();}} 
-        >
-            <h1>Card</h1>
+        <div 
+            draggable 
+            onDragStart={(e) => {e.dataTransfer.setData('text/plain', JSON.stringify({type:'card'}))}} 
+            onDragEnd={(e) => {e.dataTransfer.clearData();}} >
+            <h2>Card</h2>
         </div>
     )
 }
