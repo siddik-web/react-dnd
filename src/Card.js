@@ -1,15 +1,19 @@
 import React from 'react'
+import { useDrag } from 'react-dnd';
 import './App.css'
+import { types } from './types';
 
-function Card() {
-
+function Card(props) {
+    const {id, name} = props.card;
+    const [collection, drag] = useDrag(() => ({
+        type: types.CARD,
+        item: {
+            id, name
+        }
+    }))
+    
     return (
-        <div 
-            draggable 
-            onDragStart={(e) => {e.dataTransfer.setData('text/plain', JSON.stringify({type:'card'}))}} 
-            onDragEnd={(e) => {e.dataTransfer.clearData();}} >
-            <h2>Card</h2>
-        </div>
+        <div ref={drag}>{name}</div>
     )
 }
 
