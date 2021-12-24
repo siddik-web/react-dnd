@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import './App.css'
 import { types } from './types'
@@ -6,6 +6,16 @@ import { types } from './types'
 
 function Box() {
     const [boxes, setBoxes] = useState([]);
+    const [count, setCount] = useState(0);
+
+    function handleClick() {
+        setCount(count+1);
+    }
+
+    useEffect(() => {
+        console.log('hi')
+    }, [count])
+    
     const [{isOver}, drop] = useDrop(() => ({
         accept: types.CARD,
         drop: (item) => {
@@ -21,6 +31,7 @@ function Box() {
     
     return (
         <div className='box' ref={drop} style={{backgroundColor: isOver ? '#eee': '#ccc'}}>
+            <button onClick={handleClick}>{count}</button>
             {boxes.map((box, index) => <div key={index}>{box.name}</div>)}
         </div>
     )
