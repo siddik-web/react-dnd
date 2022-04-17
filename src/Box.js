@@ -12,6 +12,11 @@ function Box() {
         setCount(count+1);
     }
 
+    function handleDelete()
+    {
+        setBoxes([]);
+    }
+
     useEffect(() => {
         console.log('hi')
     }, [count])
@@ -32,6 +37,7 @@ function Box() {
     return (
         <div className='box' ref={drop} style={{backgroundColor: isOver ? '#eee': '#ccc'}}>
             <button onClick={handleClick}>{count}</button>
+            <button onClick={handleDelete}>Delete</button>
             {boxes.map((box, index) => <div key={index}>{box.name}</div>)}
         </div>
     )
