@@ -10,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <DndProvider backend={HTML5Backend}>
       <App />
-    </DndProvider>
+    </DndProvider>,
   </React.StrictMode>,
   document.getElementById('root')
 );

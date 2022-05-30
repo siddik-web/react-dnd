@@ -12,6 +12,10 @@ function Box() {
         setCount(count+1);
     }
 
+    function handleClearClick(){
+        setCount(0);
+    }
+
     function handleDelete()
     {
         setBoxes([]);
@@ -24,19 +28,23 @@ function Box() {
     const [{isOver}, drop] = useDrop(() => ({
         accept: types.CARD,
         drop: (item) => {
-            console.log(item)
             setBoxes((prevState) => {
                 return [...prevState, item]
             })
         },
         collect: (monitor) => ({
-            isOver: monitor.isOver()
-        })
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+        }),
+        canDrop: (monitor) => {
+            return monitor.name === "Text" || monitor.name === "Button";
+        }
     }))
     
     return (
         <div className='box' ref={drop} style={{backgroundColor: isOver ? '#eee': '#ccc'}}>
             <button onClick={handleClick}>{count}</button>
+            <button onClick={handleClearClick}>Clear Click</button>
             <button onClick={handleDelete}>Delete</button>
             {boxes.map((box, index) => <div key={index}>{box.name}</div>)}
         </div>
