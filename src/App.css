@@ -12,3 +12,7 @@
 h2 {
   margin: 50px;
 }
+
+.card{
+  max-width: 20%;
+}

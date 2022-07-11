@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useDrop } from 'react-dnd'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDrag, useDrop } from 'react-dnd'
 import './App.css'
 import { types } from './types'
 
-
+const style = {
+    border: "1px dashed black",
+    marginBottom: ".5rem",
+    padding: "0.5rem 1rem",
+    backgroundColor:"white",
+    cursor:"move"
+}
 function Box() {
     const [boxes, setBoxes] = useState([]);
     const [count, setCount] = useState(0);
+
 
     function handleClick() {
         setCount(count+1);
@@ -25,7 +32,7 @@ function Box() {
         console.log('hi')
     }, [count])
     
-    const [{isOver}, drop] = useDrop(() => ({
+    const [{isOver}, dropRef] = useDrop(() => ({
         accept: types.CARD,
         drop: (item) => {
             setBoxes((prevState) => {
@@ -40,13 +47,13 @@ function Box() {
             return monitor.name === "Text" || monitor.name === "Button";
         }
     }))
-    
+
     return (
-        <div className='box' ref={drop} style={{backgroundColor: isOver ? '#eee': '#ccc'}}>
+        <div className='box' ref={dropRef} style={{backgroundColor: isOver ? '#eee': '#ccc'}}>
             <button onClick={handleClick}>{count}</button>
             <button onClick={handleClearClick}>Clear Click</button>
             <button onClick={handleDelete}>Delete</button>
-            {boxes.map((box, index) => <div key={index}>{box.name}</div>)}
+            {boxes.map((box, index) => <div style={{...style}} className="card" key={index}>{box.name}</div>)}
         </div>
     )
 }
